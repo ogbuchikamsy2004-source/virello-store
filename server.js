@@ -4,11 +4,13 @@ const bcrypt = require('bcryptjs');
 const Database = require('better-sqlite3');
 const crypto = require('crypto');
 const path = require('path');
-
+const fs = require ('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const db = new Database(process.env.DB_PATH || path.join(__dirname, 'data', 'virello.db'));
-db.pragma('journal_mode = WAL');
+const dbPath = process.env.DB_PATH || path.join(__dirname, 'data', 'virello.db');
+fs.mkdirSync(path.dirname(dbPath), { recursive: true});
+const db = new Database(dbPath);
+
 
 app.use(express.json({limit:'2mb'}));
 app.use(session({
