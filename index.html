@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Virello Store - premium products, simple ordering and order tracking.">
+  <title>Virello Store</title>
+
+  <style>
+    :root{
+      --cream:#f7f1e7;
+      --cream2:#fffaf2;
+      --brown:#3b271d;
+      --brown2:#654637;
+      --gold:#b98b50;
+      --text:#241a15;
+      --muted:#786b63;
+      --white:#fff;
+      --line:#e6d8ca;
+      --danger:#a33a32;
+      --success:#3d7655;
+      --shadow:0 12px 35px rgba(55,35,22,.10);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--cream);
+      color:var(--text);
+      line-height:1.55;
+    }
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .container{width:min(1160px,92%);margin:auto}
+    .section{padding:80px 0}
+    .section-title{font-size:clamp(28px,5vw,44px);margin-bottom:12px;color:var(--brown)}
+    .section-subtitle{color:var(--muted);max-width:650px;margin-bottom:35px}
+    .eyebrow{
+      display:inline-block;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:12px;
+      color:var(--gold);
+      font-weight:800;
+      margin-bottom:10px
+    }
+
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(247,241,231,.95);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      min-height:72px;
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{
+      font-weight:900;font-size:23px;letter-spacing:.5px;color:var(--brown);
+      white-space:nowrap;
+    }
+    .brand small{display:block;font-size:9px;letter-spacing:3px;color:var(--gold)}
+    .nav-links{display:flex;gap:24px;align-items:center}
+    .nav-links a{font-size:14px;font-weight:700;color:var(--brown2)}
+    .nav-links a:hover{color:var(--gold)}
+    .menu-btn{
+      display:none;border:0;background:transparent;font-size:28px;color:var(--brown)
+    }
+
+    .hero{
+      min-height:calc(100vh - 72px);
+      display:grid;place-items:center;
+      background:
+        radial-gradient(circle at 85% 25%,rgba(185,139,80,.18),transparent 28%),
+        radial-gradient(circle at 15% 80%,rgba(101,70,55,.10),transparent 25%);
+    }
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center}
+    .hero h1{font-size:clamp(44px,7vw,78px);line-height:1.02;color:var(--brown);margin-bottom:22px}
+    .hero p{font-size:18px;color:var(--muted);max-width:600px;margin-bottom:28px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      border:0;border-radius:999px;padding:13px 21px;font-weight:800;
+      transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--brown);color:white}
+    .btn-secondary{background:transparent;color:var(--brown);border:1px solid var(--brown)}
+    .btn-danger{background:var(--danger);color:white}
+    .btn-small{padding:9px 14px;font-size:13px}
+
+    .hero-card{
+      min-height:420px;border-radius:35px;background:linear-gradient(145deg,#eadcc9,#cdb79d);
+      display:flex;align-items:end;padding:28px;box-shadow:var(--shadow);overflow:hidden;position:relative
+    }
+    .hero-card:before{
+      content:"V";position:absolute;right:-30px;top:-70px;font-size:380px;font-weight:900;
+      color:rgba(255,255,255,.22);line-height:1
+    }
+    .hero-card-content{position:relative;z-index:1;background:rgba(255,250,242,.86);padding:20px;border-radius:18px;width:100%}
+    .hero-card-content h3{color:var(--brown);margin-bottom:5px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+    .stat{padding:18px;border:1px solid var(--line);background:rgba(255,255,255,.55);border-radius:16px}
+    .stat strong{display:block;font-size:24px;color:var(--brown)}
+
+    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .product-card{
+      background:var(--cream2);border:1px solid var(--line);border-radius:var(--radius);
+      overflow:hidden;box-shadow:0 6px 20px rgba(55,35,22,.05)
+    }
+    .product-image{
+      height:220px;background:#e8dbcb;display:grid;place-items:center;color:var(--brown2);
+      overflow:hidden
+    }
+    .product-image img{width:100%;height:100%;object-fit:cover}
+    .placeholder-letter{font-size:75px;font-weight:900;opacity:.25}
+    .product-body{padding:17px}
+    .product-body h3{color:var(--brown);margin-bottom:5px}
+    .price{font-weight:900;color:var(--brown);font-size:18px;margin:9px 0}
+    .muted{color:var(--muted);font-size:14px}
+    .badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eadfce;color:var(--brown2);font-size:11px;font-weight:800}
+    .product-actions{display:flex;gap:8px;margin-top:13px}
+    .product-actions .btn{flex:1}
+
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+    .field,.input,.textarea,.select{
+      width:100%;border:1px solid var(--line);background:white;color:var(--text);
+      border-radius:12px;padding:12px;outline:none
+    }
+    .field:focus,.input:focus,.textarea:focus,.select:focus{border-color:var(--gold)}
+    .toolbar .field{max-width:340px}
+
+    .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .review-card{background:var(--cream2);border:1px solid var(--line);padding:22px;border-radius:18px}
+    .stars{color:var(--gold);letter-spacing:2px;margin:8px 0}
+    .review-card strong{color:var(--brown)}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+    .panel{background:var(--cream2);border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:var(--shadow)}
+    .form-group{margin-bottom:15px}
+    .form-group label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:var(--brown)}
+    .textarea{min-height:130px;resize:vertical}
+
+    .track-result,.notice{
+      padding:18px;border-radius:15px;margin-top:18px;border:1px solid var(--line);
+      background:#fff
+    }
+    .success{border-color:#b9d9c4;background:#f1faf4}
+    .error{border-color:#e4b7b3;background:#fff5f4}
+
+    footer{background:var(--brown);color:#f7eee5;padding:50px 0 25px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px}
+    footer h3{margin-bottom:12px}
+    footer p,footer a{color:#dfd0c5;font-size:14px}
+    footer a{display:block;margin:7px 0}
+    .copyright{border-top:1px solid rgba(255,255,255,.15);margin-top:35px;padding-top:18px;font-size:12px;color:#cbb9aa}
+
+    /* modal */
+    .modal{
+      position:fixed;inset:0;background:rgba(20,12,8,.62);display:none;place-items:center;
+      z-index:100;padding:18px
+    }
+    .modal.open{display:grid}
+    .modal-card{
+      background:var(--cream2);width:min(520px,100%);max-height:92vh;overflow:auto;
+      border-radius:22px;padding:25px;position:relative
+    }
+    .close{position:absolute;right:15px;top:12px;border:0;background:transparent;font-size:26px;color:var(--brown)}
+    .modal-card h2{color:var(--brown);margin-bottom:7px}
+
+    /* admin */
+    #adminApp{display:none}
+    .admin-shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;background:#f3ede4}
+    .admin-side{background:var(--brown);color:white;padding:25px 15px}
+    .admin-side h2{padding:0 10px 25px}
+    .admin-nav button{
+      width:100%;text-align:left;border:0;background:transparent;color:#e8ddd3;
+      padding:12px;border-radius:10px;margin:3px 0;font-weight:700
+    }
+    .admin-nav button.active,.admin-nav button:hover{background:rgba(255,255,255,.12);color:white}
+    .admin-main{padding:28px}
+    .admin-top{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:25px}
+    .admin-section{display:none}
+    .admin-section.active{display:block}
+    .dashboard-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+    .dashboard-card{background:white;border:1px solid var(--line);border-radius:16px;padding:20px}
+    .dashboard-card strong{display:block;font-size:30px;color:var(--brown)}
+    .admin-table{width:100%;border-collapse:collapse;background:white;border-radius:15px;overflow:hidden}
+    .admin-table th,.admin-table td{padding:12px;border-bottom:1px solid #eee;text-align:left;font-size:13px;vertical-align:top}
+    .admin-table th{background:#f5eee5;color:var(--brown)}
+    .admin-actions{display:flex;gap:7px;flex-wrap:wrap}
+    .hidden-access{
+      position:fixed;bottom:7px;right:7px;width:30px;height:30px;opacity:.08;z-index:90;
+      border:0;background:transparent
+    }
+
+    @media(max-width:900px){
+      .products-grid{grid-template-columns:repeat(2,1fr)}
+      .review-grid{grid-template-columns:1fr 1fr}
+      .hero-grid,.two-col{grid-template-columns:1fr}
+      .dashboard-cards{grid-template-columns:repeat(2,1fr)}
+      .admin-shell{grid-template-columns:1fr}
+      .admin-side{position:sticky;top:0;z-index:40;padding:12px}
+      .admin-side h2{display:none}
+      .admin-nav{display:flex;overflow:auto;gap:5px}
+      .admin-nav button{white-space:nowrap;width:auto}
+    }
+    @media(max-width:650px){
+      .nav-links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--cream);padding:15px 4%;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}
+      .nav-links.open{display:flex}
+      .menu-btn{display:block}
+      .hero{padding:45px 0}
+      .hero-card{min-height:330px}
+      .stats{grid-template-columns:1fr}
+      .products-grid,.review-grid,.footer-grid{grid-template-columns:1fr}
+      .section{padding:60px 0}
+      .admin-main{padding:16px}
+      .dashboard-cards{grid-template-columns:1fr}
+      .admin-table{display:block;overflow-x:auto}
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- PUBLIC WEBSITE -->
+<div id="publicApp">
+
+  <header>
+    <div class="container nav">
+      <button type="button" class="brand" id="brandName" style="border:0;background:transparent;padding:0;text-align:left">Virello Store<small>PREMIUM • SIMPLE • TRUSTED</small></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#track">Track Your Order</a>
+        <a href="#contact">Contact Us</a>
+        <a href="#rules">Rules/Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Welcome to <span class="dynamic-name">Virello Store</span></span>
+          <h1 id="heroHeadline">Quality products. A simple way to shop.</h1>
+          <p id="heroText">Self satisfaction above other things. Browse our products, place your order and keep your reference number to track it.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products" id="heroCta">Let's Dive In</a>
+            <a class="btn btn-secondary" href="#track">Track an Order</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong id="stat1">2K+</strong><span class="muted" id="stat1Label">Orders</span></div>
+            <div class="stat"><strong id="stat2">100+</strong><span class="muted" id="stat2Label">Delivery / Service</span></div>
+            <div class="stat"><strong id="stat3">100%</strong><span class="muted" id="stat3Label">Delivery Satisfaction</span></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-content">
+            <span class="eyebrow">Our promise</span>
+            <h3 id="heroPromise">A smooth shopping experience from product selection to delivery.</h3>
+            <p class="muted">Information shown here can be changed by the administrator.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="container">
+        <span class="eyebrow">Shop</span>
+        <h2 class="section-title">Our Products</h2>
+        <p class="section-subtitle">Browse available products and select what you want to order.</p>
+        <div class="toolbar">
+          <input class="field" id="productSearch" placeholder="Search products...">
+          <select class="field" id="categoryFilter"><option value="">All categories</option></select>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <span class="eyebrow">Customers</span>
+        <h2 class="section-title">Reviews</h2>
+        <p class="section-subtitle">Reviews displayed here are managed through the admin system.</p>
+        <div class="review-grid" id="reviewsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="track">
+      <div class="container two-col">
+        <div>
+          <span class="eyebrow">Order tracking</span>
+          <h2 class="section-title">Track Your Order</h2>
+          <p class="section-subtitle">Enter the order/reference number you received after placing an order.</p>
+        </div>
+        <div class="panel">
+          <form id="trackForm">
+            <div class="form-group">
+              <label for="trackRef">Order reference</label>
+              <input class="input" id="trackRef" required placeholder="e.g. VIR-123456">
+            </div>
+            <button class="btn btn-primary" type="submit">Check Order</button>
+          </form>
+          <div id="trackResult"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container two-col">
+        <div>
+          <span class="eyebrow">Get in touch</span>
+          <h2 class="section-title">Contact Us</h2>
+          <p class="section-subtitle">Use the contact details below to reach the business.</p>
+          <div class="panel">
+            <p><strong>Email:</strong> <a id="contactEmail" href="mailto:">placeholder@example.com</a></p>
+            <p style="margin-top:10px"><strong>Phone:</strong> <a id="contactPhone" href="tel:">Not supplied</a></p>
+            <p style="margin-top:10px"><strong>WhatsApp:</strong> <a id="contactWhatsApp" href="#" target="_blank" rel="noopener">Not supplied</a></p>
+            <div id="socialLinks" style="margin-top:15px"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 style="color:var(--brown);margin-bottom:10px">Send a message</h3>
+          <form id="contactForm">
+            <div class="form-group"><label>Name</label><input class="input" required></div>
+            <div class="form-group"><label>Email or phone</label><input class="input" required></div>
+            <div class="form-group"><label>Message</label><textarea class="textarea" required></textarea></div>
+            <button class="btn btn-primary">Send Message</button>
+          </form>
+          <div id="contactNotice"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <div class="container">
+        <span class="eyebrow">Information</span>
+        <h2 class="section-title">Rules / Terms</h2>
+        <div class="panel">
+          <div id="rulesContent"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3 class="dynamic-name">Virello Store</h3>
+        <p>Premium, modern and simple online shopping.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="#products">Products</a>
+        <a href="#track">Track Order</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h3>Business</h3>
+        <p id="footerBusinessInfo">Information managed by the administrator.</p>
+        <button class="btn btn-secondary btn-small" style="margin-top:14px;border-color:#dfd0c5;color:#f7eee5" id="footerAdminLogin">Admin Login</button>
+      </div>
+    </div>
+    <div class="container copyright">© <span id="year"></span> <span class="dynamic-name">Virello Store</span>. All rights reserved.</div>
+  </footer>
+
+  <!-- discreet six-tap control -->
+  <button class="hidden-access" id="secretAdmin" aria-label="Private access"></button>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="modal" id="loginModal">
+  <div class="modal-card">
+    <button class="close" data-close="loginModal">×</button>
+    <span class="eyebrow">Private access</span>
+    <h2>Admin Login</h2>
+    <p class="muted" style="margin-bottom:18px">Authorized administrators only.</p>
+    <form id="loginForm">
+      <div class="form-group"><label>Username</label><input class="input" id="loginUsername" required autocomplete="username"></div>
+      <div class="form-group"><label>Password</label><input class="input" id="loginPassword" type="password" required autocomplete="current-password"></div>
+      <button class="btn btn-primary" style="width:100%">Login</button>
+    </form>
+    <div id="loginNotice"></div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal" id="orderModal">
+  <div class="modal-card">
+    <button class="close" data-close="orderModal">×</button>
+    <span class="eyebrow">Place order</span>
+    <h2 id="orderProductName">Product</h2>
+    <p class="muted" id="orderProductPrice"></p>
+    <form id="orderForm" style="margin-top:18px">
+      <input type="hidden" id="orderProductId">
+      <div class="form-group"><label>Quantity</label><input class="input" id="orderQuantity" type="number" min="1" value="1" required></div>
+      <div class="form-group"><label>Your name</label><input class="input" id="customerName" required></div>
+      <div class="form-group"><label>Phone / WhatsApp</label><input class="input" id="customerPhone" required></div>
+      <div class="form-group"><label>Delivery information</label><textarea class="textarea" id="deliveryInfo" required placeholder="Enter the information needed for delivery."></textarea></div>
+      <button class="btn btn-primary" style="width:100%">Submit Order</button>
+    </form>
+    <div id="orderNotice"></div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAILS MODAL -->
+<div class="modal" id="productModal">
+  <div class="modal-card">
+    <button class="close" data-close="productModal">×</button>
+    <div id="productDetails"></div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+  <div class="admin-shell">
+    <aside class="admin-side">
+      <h2>Admin Portal</h2>
+      <div class="admin-nav">
+        <button class="active" data-admin-section="dashboard">Dashboard</button>
+        <button data-admin-section="productsAdmin">Products</button>
+        <button data-admin-section="ordersAdmin">Orders</button>
+        <button data-admin-section="reviewsAdmin">Reviews</button>
+        <button data-admin-section="contentAdmin">Homepage</button>
+        <button data-admin-section="contactAdmin">Contact</button>
+        <button data-admin-section="rulesAdmin">Rules/Terms</button>
+        <button data-admin-section="settingsAdmin">Settings</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-top">
+        <div>
+          <span class="eyebrow">Private dashboard</span>
+          <h1 style="color:var(--brown)">Virello Store Admin</h1>
+        </div>
+        <button class="btn btn-danger btn-small" id="logoutBtn">Logout</button>
+      </div>
+
+      <section class="admin-section active" id="dashboard">
+        <h2 class="section-title">Dashboard</h2>
+        <div class="dashboard-cards">
+          <div class="dashboard-card"><span class="muted">Products</span><strong id="dashProducts">0</strong></div>
+          <div class="dashboard-card"><span class="muted">Orders</span><strong id="dashOrders">0</strong></div>
+          <div class="dashboard-card"><span class="muted">Pending</span><strong id="dashPending">0</strong></div>
+          <div class="dashboard-card"><span class="muted">Reviews</span><strong id="dashReviews">0</strong></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="productsAdmin">
+        <h2 class="section-title">Products</h2>
+        <div class="panel">
+          <h3 id="productFormTitle" style="color:var(--brown);margin-bottom:15px">Add Product</h3>
+          <form id="productAdminForm">
+            <input type="hidden" id="editProductId">
+            <div class="two-col">
+              <div>
+                <div class="form-group"><label>Product name</label><input class="input" id="adminProductName" required></div>
+                <div class="form-group"><label>Price</label><input class="input" id="adminProductPrice" type="number" min="0" step="0.01" required></div>
+                <div class="form-group"><label>Category</label><input class="input" id="adminProductCategory" required></div>
+                <div class="form-group"><label>Image URL</label><input class="input" id="adminProductImage" placeholder="https://..."></div>
+              </div>
+              <div>
+                <div class="form-group"><label>Description</label><textarea class="textarea" id="adminProductDescription" required></textarea></div>
+                <div class="form-group"><label>Availability</label>
+                  <select class="select" id="adminProductAvailability">
+                    <option value="Available">Available</option>
+                    <option value="Out of stock">Out of stock</option>
+                    <option value="Hidden">Hidden</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary">Save Product</button>
+            <button type="button" class="btn btn-secondary" id="cancelProductEdit" style="display:none">Cancel Edit</button>
+          </form>
+          <div id="productAdminNotice"></div>
+        </div>
+        <div style="height:20px"></div>
+        <div class="panel">
+          <div style="overflow:auto"><table class="admin-table"><thead><tr><th>Product</th><th>Price</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adminProductsTable"></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="ordersAdmin">
+        <h2 class="section-title">Orders</h2>
+        <div class="panel">
+          <div style="overflow:auto"><table class="admin-table"><thead><tr><th>Reference</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminOrdersTable"></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="reviewsAdmin">
+        <h2 class="section-title">Reviews</h2>
+        <div class="panel">
+          <form id="reviewAdminForm">
+            <div class="two-col">
+              <div>
+                <div class="form-group"><label>Display name</label><input class="input" id="reviewName" required></div>
+                <div class="form-group"><label>Rating</label><select class="select" id="reviewRating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+              </div>
+              <div><div class="form-group"><label>Review</label><textarea class="textarea" id="reviewText" required></textarea></div></div>
+            </div>
+            <button class="btn btn-primary">Add Review</button>
+          </form>
+        </div>
+        <div style="height:20px"></div>
+        <div class="panel"><div style="overflow:auto"><table class="admin-table"><thead><tr><th>Name</th><th>Rating</th><th>Review</th><th>Action</th></tr></thead><tbody id="adminReviewsTable"></tbody></table></div></div>
+      </section>
+
+      <section class="admin-section" id="contentAdmin">
+        <h2 class="section-title">Homepage Content</h2>
+        <div class="panel">
+          <form id="contentForm">
+            <div class="form-group"><label>Hero headline</label><input class="input" id="contentHeadline"></div>
+            <div class="form-group"><label>Supporting text</label><textarea class="textarea" id="contentText"></textarea></div>
+            <div class="form-group"><label>CTA label</label><input class="input" id="contentCta"></div>
+            <div class="form-group"><label>Hero promise</label><textarea class="textarea" id="contentPromise"></textarea></div>
+            <div class="two-col">
+              <div class="form-group"><label>Statistic 1</label><input class="input" id="contentStat1"></div>
+              <div class="form-group"><label>Statistic 1 label</label><input class="input" id="contentStat1Label"></div>
+              <div class="form-group"><label>Statistic 2</label><input class="input" id="contentStat2"></div>
+              <div class="form-group"><label>Statistic 2 label</label><input class="input" id="contentStat2Label"></div>
+              <div class="form-group"><label>Statistic 3</label><input class="input" id="contentStat3"></div>
+              <div class="form-group"><label>Statistic 3 label</label><input class="input" id="contentStat3Label"></div>
+            </div>
+            <button class="btn btn-primary">Save Homepage</button>
+          </form>
+          <div id="contentNotice"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="contactAdmin">
+        <h2 class="section-title">Contact</h2>
+        <div class="panel">
+          <form id="contactAdminForm">
+            <div class="form-group"><label>Email</label><input class="input" id="adminEmail" type="email"></div>
+            <div class="form-group"><label>Phone</label><input class="input" id="adminPhone"></div>
+            <div class="form-group"><label>WhatsApp link</label><input class="input" id="adminWhatsApp" placeholder="https://wa.me/..."></div>
+            <div class="form-group"><label>Instagram / social link</label><input class="input" id="adminInstagram"></div>
+            <button class="btn btn-primary">Save Contact</button>
+          </form>
+          <div id="contactAdminNotice"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="rulesAdmin">
+        <h2 class="section-title">Rules / Terms</h2>
+        <div class="panel">
+          <form id="rulesForm">
+            <div class="form-group"><label>Customer-facing rules</label><textarea class="textarea" id="adminRules" style="min-height:300px"></textarea></div>
+            <button class="btn btn-primary">Save Rules</button>
+          </form>
+          <div id="rulesAdminNotice"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="settingsAdmin">
+        <h2 class="section-title">Settings</h2>
+
+        <div class="panel" style="margin-bottom:20px">
+          <h3 style="color:var(--brown);margin-bottom:15px">Business / Store Name</h3>
+          <form id="businessNameForm">
+            <div class="form-group"><label>Business name</label><input class="input" id="businessNameInput" required></div>
+            <button class="btn btn-primary">Save Business Name</button>
+          </form>
+          <div id="businessNotice"></div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--brown);margin-bottom:15px">Admin Account</h3>
+          <p class="muted" style="margin-bottom:18px">
+            The production version should send these changes to a secure backend where passwords are hashed.
+            This HTML-only version does not contain or expose a production admin password.
+          </p>
+
+          <form id="usernameForm">
+            <div class="form-group"><label>New admin username</label><input class="input" id="newUsername" autocomplete="username" required></div>
+            <button class="btn btn-primary">Change Username</button>
+          </form>
+          <div id="usernameNotice"></div>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:25px 0">
+
+          <form id="passwordForm">
+            <div class="form-group"><label>Current password</label><input class="input" id="currentPassword" type="password" autocomplete="current-password" required></div>
+            <div class="form-group"><label>New password</label><input class="input" id="newPassword" type="password" autocomplete="new-password" minlength="8" required></div>
+            <div class="form-group"><label>Confirm new password</label><input class="input" id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></div>
+            <button class="btn btn-primary">Change Password</button>
+          </form>
+          <div id="passwordNotice"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+/*
+  VIRELLO STORE FRONTEND
+  ----------------------
+  This file is intentionally a single HTML file so it is easy to copy and run.
+
+  IMPORTANT:
+  A browser-only HTML file cannot securely provide:
+    - server-side password hashing
+    - central database storage across devices
+    - real protected backend admin routes
+
+  Therefore this file provides the complete UI and a browser prototype.
+  For production, replace the storage/auth functions below with API calls
+  to a real backend/database. NEVER put a production password in this file.
+*/
+
+const STORAGE_KEY = "virello_store_frontend_demo_v1";
+
+const defaultState = {
+  settings: {
+    businessName: "Virello Store",
+    adminUsername: "admin",
+    /* Demo-only placeholder state. Do not use this as production authentication. */
+    demoPassword: "CHANGE-ME",
+    email: "placeholder@example.com",
+    phone: "",
+    whatsapp: "",
+    instagram: ""
+  },
+  content: {
+    headline: "Quality products. A simple way to shop.",
+    text: "Self satisfaction above other things. Browse our products, place your order and keep your reference number to track it.",
+    cta: "Let's Dive In",
+    promise: "A smooth shopping experience from product selection to delivery.",
+    stat1: "2K+",
+    stat1Label: "Orders",
+    stat2: "100+",
+    stat2Label: "Delivery / Service",
+    stat3: "100%",
+    stat3Label: "Delivery Satisfaction"
+  },
+  products: [
+    {
+      id:"p1", name:"Premium Collection Item", price:25000, category:"Featured",
+      description:"A placeholder product. Replace this with your real product information from the Admin Portal.",
+      image:"", availability:"Available"
+    },
+    {
+      id:"p2", name:"Signature Collection Item", price:35000, category:"Featured",
+      description:"A placeholder product. Replace this with your real product information from the Admin Portal.",
+      image:"", availability:"Available"
+    },
+    {
+      id:"p3", name:"Classic Collection Item", price:18000, category:"Classic",
+      description:"A placeholder product. Replace this with your real product information from the Admin Portal.",
+      image:"", availability:"Available"
+    }
+  ],
+  orders: [],
+  reviews: [
+    {id:"r1",name:"Customer Review",rating:5,text:"Placeholder review — replace with a real customer review or clearly identify admin-created content.",date:new Date().toISOString()}
+  ],
+  rules: "Ordering, delivery, returns/exchanges, cancellations and payment policies will be published here by the business owner. Please confirm the final business policies before publishing them."
+};
+
+let state = clone(defaultState);
+let adminLoggedIn = false;
+let stateReady = false;
+let secretTaps = 0;
+let tapTimer = null;
+
+function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+
+async function loadState(){
+  try{
+    const res = await fetch("/api/state", {credentials:"same-origin"});
+    if(!res.ok) throw new Error("Unable to load store data");
+    const remote = await res.json();
+    state = {...clone(defaultState), ...remote, orders:[]};
+    stateReady = true;
+    return state;
+  }catch(e){
+    console.error(e);
+    state = clone(defaultState);
+    stateReady = false;
+    return state;
+  }
+}
+
+async function saveState(){
+  if(!adminLoggedIn) return false;
+  const payload = {settings:{...state.settings, adminUsername:undefined, demoPassword:undefined}, content:state.content, products:state.products, reviews:state.reviews, rules:state.rules};
+  try{
+    const res=await fetch("/api/admin/state",{method:"PUT",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify(payload)});
+    if(!res.ok) throw new Error("Save failed");
+    const remote=await res.json();
+    state={...state,...remote};
+    return true;
+  }catch(e){
+    console.error(e);
+    return false;
+  }
+}
+
+/* ---------- PUBLIC SITE ---------- */
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+function money(value){
+  return "₦" + Number(value || 0).toLocaleString("en-NG",{maximumFractionDigits:2});
+}
+
+function renderPublic(){
+  const name = state.settings.businessName || "Virello Store";
+  document.title = name;
+  document.querySelectorAll(".dynamic-name").forEach(el => el.textContent = name);
+  document.getElementById("brandName").firstChild.textContent = name;
+
+  const c = state.content;
+  document.getElementById("heroHeadline").textContent = c.headline;
+  document.getElementById("heroText").textContent = c.text;
+  document.getElementById("heroCta").textContent = c.cta;
+  document.getElementById("heroPromise").textContent = c.promise;
+  ["1","2","3"].forEach(n=>{
+    document.getElementById("stat"+n).textContent = c["stat"+n];
+    document.getElementById("stat"+n+"Label").textContent = c["stat"+n+"Label"];
+  });
+
+  const email = state.settings.email || "Not supplied";
+  const phone = state.settings.phone || "Not supplied";
+  const wa = state.settings.whatsapp || "";
+
+  const emailEl=document.getElementById("contactEmail");
+  emailEl.textContent=email;
+  emailEl.href = state.settings.email ? "mailto:"+state.settings.email : "#";
+
+  const phoneEl=document.getElementById("contactPhone");
+  phoneEl.textContent=phone;
+  phoneEl.href = state.settings.phone ? "tel:"+state.settings.phone : "#";
+
+  const waEl=document.getElementById("contactWhatsApp");
+  waEl.textContent=wa || "Not supplied";
+  waEl.href=wa || "#";
+
+  const socials=document.getElementById("socialLinks");
+  socials.innerHTML=state.settings.instagram
+    ? `<a class="btn btn-secondary btn-small" href="${escapeHTML(state.settings.instagram)}" target="_blank" rel="noopener">Social Media</a>`
+    : "";
+
+  document.getElementById("rulesContent").innerHTML =
+    escapeHTML(state.rules).replace(/\n/g,"<br>");
+
+  renderCategories();
+  renderProducts();
+  renderReviews();
+}
+
+function renderCategories(){
+  const select=document.getElementById("categoryFilter");
+  const current=select.value;
+  const categories=[...new Set(state.products.map(p=>p.category).filter(Boolean))].sort();
+  select.innerHTML='<option value="">All categories</option>'+categories.map(c=>`<option>${escapeHTML(c)}</option>`).join("");
+  select.value=categories.includes(current)?current:"";
+}
+
+function renderProducts(){
+  const grid=document.getElementById("productsGrid");
+  const query=document.getElementById("productSearch").value.toLowerCase().trim();
+  const category=document.getElementById("categoryFilter").value;
+
+  const products=state.products.filter(p=>{
+    if(p.availability==="Hidden") return false;
+    const match=!query || (p.name+" "+p.description+" "+p.category).toLowerCase().includes(query);
+    const cat=!category || p.category===category;
+    return match && cat;
+  });
+
+  if(!products.length){
+    grid.innerHTML='<div class="notice">No products match your search.</div>';
+    return;
+  }
+
+  grid.innerHTML=products.map(p=>{
+    const image=p.image
+      ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
+      : `<span class="placeholder-letter">${escapeHTML((p.name||"V")[0])}</span>`;
+    const unavailable=p.availability!=="Available";
+    return `
+      <article class="product-card">
+        <div class="product-image">${image}</div>
+        <div class="product-body">
+          <span class="badge">${escapeHTML(p.category)}</span>
+          <h3>${escapeHTML(p.name)}</h3>
+          <p class="price">${money(p.price)}</p>
+          <p class="muted">${escapeHTML(p.description)}</p>
+          <div class="product-actions">
+            <button class="btn btn-secondary btn-small" onclick="showProduct('${p.id}')">Details</button>
+            <button class="btn btn-primary btn-small" ${unavailable?"disabled":""} onclick="openOrder('${p.id}')">${unavailable?"Unavailable":"Order"}</button>
+          </div>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+function renderReviews(){
+  const grid=document.getElementById("reviewsGrid");
+  if(!state.reviews.length){
+    grid.innerHTML='<div class="notice">No reviews have been published yet.</div>';
+    return;
+  }
+  grid.innerHTML=state.reviews.map(r=>`
+    <article class="review-card">
+      <strong>${escapeHTML(r.name)}</strong>
+      <div class="stars">${"★".repeat(Number(r.rating))}${"☆".repeat(5-Number(r.rating))}</div>
+      <p>${escapeHTML(r.text)}</p>
+      <small class="muted">${new Date(r.date).toLocaleDateString()}</small>
+    </article>`).join("");
+}
+
+function showProduct(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p)return;
+  const image=p.image
+    ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" style="width:100%;max-height:340px;object-fit:cover;border-radius:15px;margin-bottom:18px">`
+    : `<div class="product-image" style="height:260px;border-radius:15px;margin-bottom:18px"><span class="placeholder-letter">${escapeHTML(p.name[0])}</span></div>`;
+  document.getElementById("productDetails").innerHTML=`
+    ${image}
+    <span class="eyebrow">${escapeHTML(p.category)}</span>
+    <h2>${escapeHTML(p.name)}</h2>
+    <p class="price">${money(p.price)}</p>
+    <p class="muted">${escapeHTML(p.description)}</p>
+    <p style="margin:15px 0"><strong>Status:</strong> ${escapeHTML(p.availability)}</p>
+    <button class="btn btn-primary" ${p.availability!=="Available"?"disabled":""} onclick="closeModal('productModal');openOrder('${p.id}')">${p.availability==="Available"?"Order Now":"Unavailable"}</button>`;
+  openModal("productModal");
+}
+
+function openOrder(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p || p.availability!=="Available") return;
+  document.getElementById("orderProductId").value=id;
+  document.getElementById("orderProductName").textContent=p.name;
+  document.getElementById("orderProductPrice").textContent=money(p.price)+" each";
+  document.getElementById("orderNotice").innerHTML="";
+  document.getElementById("orderForm").reset();
+  document.getElementById("orderProductId").value=id;
+  document.getElementById("orderQuantity").value=1;
+  openModal("orderModal");
+}
+
+function generateRef(){
+  return "VIR-"+Date.now().toString().slice(-8)+"-"+Math.floor(100+Math.random()*900);
+}
+
+document.getElementById("orderForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const p=state.products.find(x=>x.id===document.getElementById("orderProductId").value);
+  const qty=Number(document.getElementById("orderQuantity").value);
+  if(!p || p.availability!=="Available" || qty<1)return;
+  const order={
+    customerName:document.getElementById("customerName").value.trim(),
+    phone:document.getElementById("customerPhone").value.trim(),
+    delivery:document.getElementById("deliveryInfo").value.trim(),
+    items:[{productId:p.id,name:p.name,quantity:qty,price:p.price}],
+    total:p.price*qty
+  };
+  const noticeBox=document.getElementById("orderNotice");
+  noticeBox.innerHTML='<div class="notice">Submitting order...</div>';
+  try{
+    const res=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||"Order submission failed");
+    noticeBox.innerHTML=`<div class="notice success"><strong>Order submitted.</strong><br>Your reference number is <strong>${escapeHTML(data.reference)}</strong>.<br>Keep this number to track your order.</div>`;
+    document.getElementById("orderForm").reset();
+  }catch(err){
+    noticeBox.innerHTML=`<div class="notice error">${escapeHTML(err.message)}</div>`;
+  }
+});
+
+document.getElementById("trackForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const ref=document.getElementById("trackRef").value.trim().toUpperCase();
+  const box=document.getElementById("trackResult");
+  box.innerHTML='<div class="track-result">Checking order...</div>';
+  try{
+    const res=await fetch("/api/track/"+encodeURIComponent(ref));
+    const order=await res.json();
+    if(!res.ok) throw new Error(order.error||"No order found with that reference number.");
+    box.innerHTML=`<div class="track-result success"><strong>${escapeHTML(order.reference)}</strong><br>Status: <strong>${escapeHTML(order.status)}</strong><br>Items: ${order.items.map(i=>escapeHTML(i.name)+" × "+i.quantity).join(", ")}<br>Order date: ${new Date(order.createdAt).toLocaleString()}</div>`;
+  }catch(err){
+    box.innerHTML=`<div class="track-result error">${escapeHTML(err.message)}</div>`;
+  }
+});
+
+document.getElementById("contactForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  document.getElementById("contactNotice").innerHTML='<div class="notice success">Message form submitted in this browser prototype. A real production version should send it to the backend.</div>';
+  e.target.reset();
+});
+
+/* ---------- MODALS ---------- */
+
+function openModal(id){document.getElementById(id).classList.add("open")}
+function closeModal(id){document.getElementById(id).classList.remove("open")}
+document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>closeModal(btn.dataset.close)));
+document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("open")}));
+
+/* ---------- SECRET 6 TAPS ---------- */
+
+function revealAdminLogin(){
+  secretTaps=0;
+  clearTimeout(tapTimer);
+  document.getElementById("loginNotice").innerHTML="";
+  document.getElementById("loginForm").reset();
+  openModal("loginModal");
+}
+
+function registerSixTap(target){
+  target.addEventListener("click",()=>{
+    secretTaps++;
+    clearTimeout(tapTimer);
+    tapTimer=setTimeout(()=>secretTaps=0,2200);
+    if(secretTaps>=6) revealAdminLogin();
+  });
+}
+
+registerSixTap(document.getElementById("secretAdmin"));
+registerSixTap(document.getElementById("brandName"));
+document.getElementById("footerAdminLogin").addEventListener("click",revealAdminLogin);
+
+/* ---------- LOGIN DEMO ---------- */
+
+document.getElementById("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const username=document.getElementById("loginUsername").value;
+  const password=document.getElementById("loginPassword").value;
+  const noticeBox=document.getElementById("loginNotice");
+  noticeBox.innerHTML='<div class="notice">Signing in...</div>';
+  try{
+    const res=await fetch("/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({username,password})});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||"Invalid admin login.");
+    adminLoggedIn=true;
+    closeModal("loginModal");
+    document.getElementById("publicApp").style.display="none";
+    document.getElementById("adminApp").style.display="block";
+    await loadAdminState();
+    renderAdmin();
+  }catch(err){
+    noticeBox.innerHTML=`<div class="notice error">${escapeHTML(err.message)}</div>`;
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click",async()=>{
+  await fetch("/api/admin/logout",{method:"POST",credentials:"same-origin"});
+  adminLoggedIn=false;
+  document.getElementById("adminApp").style.display="none";
+  document.getElementById("publicApp").style.display="block";
+  window.scrollTo(0,0);
+});
+
+/* ---------- ADMIN NAV ---------- */
+
+document.querySelectorAll(".admin-nav button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".admin-nav button").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".admin-section").forEach(s=>s.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.adminSection).classList.add("active");
+    renderAdmin();
+  });
+});
+
+/* ---------- ADMIN RENDER ---------- */
+
+function notice(id,text,type="success"){
+  document.getElementById(id).innerHTML=`<div class="notice ${type}">${escapeHTML(text)}</div>`;
+}
+
+async function loadAdminState(){
+  const res=await fetch("/api/admin/state",{credentials:"same-origin"});
+  if(!res.ok){ adminLoggedIn=false; throw new Error("Admin session expired."); }
+  const remote=await res.json();
+  state={...state,...remote};
+  return state;
+}
+
+function renderAdmin(){
+  if(!adminLoggedIn)return;
+  document.getElementById("dashProducts").textContent=state.products.length;
+  document.getElementById("dashOrders").textContent=state.orders.length;
+  document.getElementById("dashPending").textContent=state.orders.filter(o=>o.status==="Pending").length;
+  document.getElementById("dashReviews").textContent=state.reviews.length;
+
+  renderAdminProducts();
+  renderAdminOrders();
+  renderAdminReviews();
+  fillAdminForms();
+}
+
+function renderAdminProducts(){
+  const tbody=document.getElementById("adminProductsTable");
+  tbody.innerHTML=state.products.map(p=>`
+    <tr>
+      <td><strong>${escapeHTML(p.name)}</strong><br><small>${escapeHTML(p.description.slice(0,70))}</small></td>
+      <td>${money(p.price)}</td>
+      <td>${escapeHTML(p.category)}</td>
+      <td>${escapeHTML(p.availability)}</td>
+      <td class="admin-actions">
+        <button class="btn btn-secondary btn-small" onclick="editProduct('${p.id}')">Edit</button>
+        <button class="btn btn-danger btn-small" onclick="deleteProduct('${p.id}')">Delete</button>
+      </td>
+    </tr>`).join("");
+}
+
+function renderAdminOrders(){
+  const tbody=document.getElementById("adminOrdersTable");
+  tbody.innerHTML=state.orders.length
+    ? state.orders.slice().reverse().map(o=>`
+      <tr>
+        <td><strong>${escapeHTML(o.reference)}</strong><br><small>${new Date(o.createdAt).toLocaleString()}</small></td>
+        <td>${escapeHTML(o.customerName)}<br>${escapeHTML(o.phone)}<br><small>${escapeHTML(o.delivery)}</small></td>
+        <td>${o.items.map(i=>escapeHTML(i.name)+" × "+i.quantity).join("<br>")}</td>
+        <td>${money(o.total)}</td>
+        <td>
+          <select class="select" onchange="changeOrderStatus('${o.id}',this.value)">
+            ${["Pending","Confirmed","Processing","Ready/Dispatched","Delivered","Cancelled"].map(s=>`<option ${s===o.status?"selected":""}>${s}</option>`).join("")}
+          </select>
+        </td>
+        <td><button class="btn btn-danger btn-small" onclick="deleteOrder('${o.id}')">Delete</button></td>
+      </tr>`).join("")
+    : '<tr><td colspan="6">No orders yet.</td></tr>';
+}
+
+function renderAdminReviews(){
+  const tbody=document.getElementById("adminReviewsTable");
+  tbody.innerHTML=state.reviews.map(r=>`
+    <tr>
+      <td>${escapeHTML(r.name)}</td>
+      <td>${r.rating}/5</td>
+      <td>${escapeHTML(r.text)}</td>
+      <td><button class="btn btn-danger btn-small" onclick="deleteReview('${r.id}')">Delete</button></td>
+    </tr>`).join("");
+}
+
+function fillAdminForms(){
+  const c=state.content,s=state.settings;
+  document.getElementById("contentHeadline").value=c.headline;
+  document.getElementById("contentText").value=c.text;
+  document.getElementById("contentCta").value=c.cta;
+  document.getElementById("contentPromise").value=c.promise;
+  ["1","2","3"].forEach(n=>{
+    document.getElementById("contentStat"+n).value=c["stat"+n];
+    document.getElementById("contentStat"+n+"Label").value=c["stat"+n+"Label"];
+  });
+  document.getElementById("adminEmail").value=s.email||"";
+  document.getElementById("adminPhone").value=s.phone||"";
+  document.getElementById("adminWhatsApp").value=s.whatsapp||"";
+  document.getElementById("adminInstagram").value=s.instagram||"";
+  document.getElementById("adminRules").value=state.rules;
+  document.getElementById("businessNameInput").value=s.businessName;
+  document.getElementById("newUsername").value=s.adminUsername;
+}
+
+/* ---------- PRODUCT ADMIN ---------- */
+
+document.getElementById("productAdminForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const id=document.getElementById("editProductId").value;
+  const data={
+    name:document.getElementById("adminProductName").value.trim(),
+    price:Number(document.getElementById("adminProductPrice").value),
+    category:document.getElementById("adminProductCategory").value.trim(),
+    image:document.getElementById("adminProductImage").value.trim(),
+    description:document.getElementById("adminProductDescription").value.trim(),
+    availability:document.getElementById("adminProductAvailability").value
+  };
+
+  if(id){
+    const p=state.products.find(x=>x.id===id);
+    Object.assign(p,data);
+    notice("productAdminNotice","Product updated.");
+  }else{
+    state.products.push({id:"p-"+Date.now(),...data});
+    notice("productAdminNotice","Product added.");
+  }
+  saveState(); renderPublic(); renderAdmin(); resetProductForm();
+});
+
+function editProduct(id){
+  const p=state.products.find(x=>x.id===id);if(!p)return;
+  document.getElementById("editProductId").value=p.id;
+  document.getElementById("adminProductName").value=p.name;
+  document.getElementById("adminProductPrice").value=p.price;
+  document.getElementById("adminProductCategory").value=p.category;
+  document.getElementById("adminProductImage").value=p.image;
+  document.getElementById("adminProductDescription").value=p.description;
+  document.getElementById("adminProductAvailability").value=p.availability;
+  document.getElementById("productFormTitle").textContent="Edit Product";
+  document.getElementById("cancelProductEdit").style.display="inline-flex";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function resetProductForm(){
+  document.getElementById("productAdminForm").reset();
+  document.getElementById("editProductId").value="";
+  document.getElementById("productFormTitle").textContent="Add Product";
+  document.getElementById("cancelProductEdit").style.display="none";
+}
+document.getElementById("cancelProductEdit").addEventListener("click",resetProductForm);
+
+function deleteProduct(id){
+  if(!confirm("Delete this product?"))return;
+  state.products=state.products.filter(p=>p.id!==id);
+  saveState();renderPublic();renderAdmin();
+}
+
+/* ---------- ORDER ADMIN ---------- */
+
+async function changeOrderStatus(id,status){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  try{
+    const res=await fetch("/api/admin/orders/"+encodeURIComponent(id),{method:"PATCH",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({status})});
+    if(!res.ok) throw new Error("Could not update order status.");
+    o.status=status;
+    renderPublic();renderAdmin();
+  }catch(err){ alert(err.message); await loadAdminState(); renderAdmin(); }
+}
+async function deleteOrder(id){
+  if(!confirm("Delete this order?"))return;
+  try{
+    const res=await fetch("/api/admin/orders/"+encodeURIComponent(id),{method:"DELETE",credentials:"same-origin"});
+    if(!res.ok) throw new Error("Could not delete order.");
+    state.orders=state.orders.filter(o=>o.id!==id);
+    renderAdmin();renderPublic();
+  }catch(err){ alert(err.message); }
+}
+
+/* ---------- REVIEWS ADMIN ---------- */
+
+document.getElementById("reviewAdminForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  state.reviews.push({
+    id:"r-"+Date.now(),
+    name:document.getElementById("reviewName").value.trim(),
+    rating:Number(document.getElementById("reviewRating").value),
+    text:document.getElementById("reviewText").value.trim(),
+    date:new Date().toISOString()
+  });
+  saveState();e.target.reset();renderPublic();renderAdmin();
+});
+
+function deleteReview(id){
+  if(!confirm("Delete this review?"))return;
+  state.reviews=state.reviews.filter(r=>r.id!==id);
+  saveState();renderPublic();renderAdmin();
+}
+
+/* ---------- CONTENT ADMIN ---------- */
+
+document.getElementById("contentForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const c=state.content;
+  c.headline=document.getElementById("contentHeadline").value;
+  c.text=document.getElementById("contentText").value;
+  c.cta=document.getElementById("contentCta").value;
+  c.promise=document.getElementById("contentPromise").value;
+  ["1","2","3"].forEach(n=>{
+    c["stat"+n]=document.getElementById("contentStat"+n).value;
+    c["stat"+n+"Label"]=document.getElementById("contentStat"+n+"Label").value;
+  });
+  saveState();renderPublic();notice("contentNotice","Homepage content saved.");
+});
+
+/* ---------- CONTACT ADMIN ---------- */
+
+document.getElementById("contactAdminForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  state.settings.email=document.getElementById("adminEmail").value.trim();
+  state.settings.phone=document.getElementById("adminPhone").value.trim();
+  state.settings.whatsapp=document.getElementById("adminWhatsApp").value.trim();
+  state.settings.instagram=document.getElementById("adminInstagram").value.trim();
+  saveState();renderPublic();notice("contactAdminNotice","Contact information saved.");
+});
+
+/* ---------- RULES ADMIN ---------- */
+
+document.getElementById("rulesForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  state.rules=document.getElementById("adminRules").value;
+  saveState();renderPublic();notice("rulesAdminNotice","Rules/Terms saved.");
+});
+
+/* ---------- BUSINESS NAME ---------- */
+
+document.getElementById("businessNameForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const value=document.getElementById("businessNameInput").value.trim();
+  if(!value)return;
+  state.settings.businessName=value;
+  saveState();renderPublic();notice("businessNotice","Business name saved.");
+});
+
+/* ---------- USERNAME ---------- */
+
+document.getElementById("usernameForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const value=document.getElementById("newUsername").value.trim();
+  if(!value)return;
+  try{
+    const res=await fetch("/api/admin/username",{method:"PUT",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({username:value})});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||"Could not change username.");
+    state.settings.adminUsername=value;
+    notice("usernameNotice","Username changed successfully.");
+  }catch(err){ notice("usernameNotice",err.message,"error"); }
+});
+
+/* ---------- PASSWORD ---------- */
+
+document.getElementById("passwordForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const current=document.getElementById("currentPassword").value;
+  const next=document.getElementById("newPassword").value;
+  const confirmPassword=document.getElementById("confirmPassword").value;
+  if(next.length<8){ notice("passwordNotice","New password must be at least 8 characters.","error"); return; }
+  if(next!==confirmPassword){ notice("passwordNotice","New passwords do not match.","error"); return; }
+  try{
+    const res=await fetch("/api/admin/password",{method:"PUT",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({currentPassword:current,newPassword:next})});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||"Could not change password.");
+    e.target.reset();
+    notice("passwordNotice","Password changed successfully.");
+  }catch(err){ notice("passwordNotice",err.message,"error"); }
+});
+
+/* ---------- NAV ---------- */
+
+document.getElementById("brandName").addEventListener("click",()=>{
+  if(secretTaps===0) window.location.hash="home";
+});
+
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  document.getElementById("navLinks").classList.toggle("open");
+});
+document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
+document.getElementById("productSearch").addEventListener("input",renderProducts);
+document.getElementById("categoryFilter").addEventListener("change",renderProducts);
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+/* Initial render */
+(async()=>{
+  await loadState();
+  renderPublic();
+})();
+</script>
+
+</body>
+</html>

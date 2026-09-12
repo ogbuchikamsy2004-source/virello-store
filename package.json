@@ -1,0 +1,8 @@
+{
+  "name":"virello-store-cross-device",
+  "version":"1.0.0",
+  "private":true,
+  "main":"server.js",
+  "scripts":{"start":"node server.js"},
+  "dependencies":{"bcryptjs":"^3.0.2","better-sqlite3":"^11.10.0","express":"^5.1.0","express-session":"^1.18.2"}
+}
